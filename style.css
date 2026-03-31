@@ -2,3 +2,13 @@
     margin: 0;
     padding: 0;
 }
+
+body {
+    background: #0f172a;
+    color: white;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+}

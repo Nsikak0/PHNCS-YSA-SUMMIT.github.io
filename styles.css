@@ -8,6 +8,10 @@ body {
     color: white;
 }
 
+header {
+    position: fixed;
+}
+
 nav {
     display: flex;
     justify-content: space-between;

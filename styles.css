@@ -1,18 +1,177 @@
+/* global reset for consistent sizing */
 * {
+    /* universal selector for all elements */
     margin: 0;
+    /* remove default margins */
     padding: 0;
+    /* remove default padding */
+    box-sizing: border-box;
+    /* include border/padding in width/height */
 }
 
+/* body base colors and line spacing */
 body {
+    /* body element styles */
     background: #0f172a;
+    /* dark blue background */
     color: white;
+    /* white text */
+    line-height: 1.6;
+    /* improved readability */
 }
 
+/* fixed header at top, full width */
 header {
+    /* header container */
     position: fixed;
+    /* fixed position while scrolling */
+    top: 0;
+    /* top edge of viewport */
+    left: 0;
+    /* left edge of viewport */
+    width: 100%;
+    /* full viewport width */
+    background: #020617;
+    /* dark header background */
+    padding: 15px 50px;
+    /* internal spacing */
+    z-index: 1000;
+    /* on top of other elements */
 }
 
+/* navigation container: flex layout space-between */
 nav {
+    /* navigation wrapper */
     display: flex;
+    /* horizontal flex container */
     justify-content: space-between;
+    /* separate items */
+    align-items: center;
+    /* vertical centering */
+    width: 100%;
+    /* full width inside header */
+}
+
+/* checkbox state toggler hidden by default (desktop) */
+.nav-toggle {
+    /* hidden input for mobile menu toggle */
+    display: none;
+    /* not visible on desktop */
+}
+
+/* hamburger icon label hidden desktop; shown mobile */
+.nav-toggle-label {
+    /* label for checkbox toggle */
+    display: none;
+    /* hidden on desktop */
+    font-size: 1.8rem;
+    /* icon size */
+    color: white;
+    /* icon color */
+    cursor: pointer;
+    /* pointer cursor */
+    user-select: none;
+    /* no text selection */
+}
+
+/* desktop nav links: horizontal, right-aligned */
+.nav-links {
+    /* nav list style */
+    display: flex;
+    /* inline horizontal layout */
+    list-style: none;
+    /* no bullets */
+    margin-left: auto;
+    /* push to right */
+}
+
+/* spacing between menu items */
+.nav-links li {
+    /* nav list item style */
+    margin-left: 20px;
+    /* gap between items */
+}
+
+/* link styles */
+nav a {
+    /* anchor tags in nav */
+    color: white;
+    /* text color */
+    text-decoration: none;
+    /* no underline */
+}
+
+nav a:hover {
+    /* hover state for links */
+    color: #38bdf8;
+    /* highlight color */
+}
+
+/* responsive styles for screens <= 768px */
+@media (max-width: 768px) {
+
+    /* smaller padding on mobile */
+    header {
+        /* header on mobile */
+        padding: 12px 20px;
+        /* reduced padding */
+    }
+
+    /* show hamburger icon */
+    .nav-toggle-label {
+        /* show label on mobile */
+        display: block;
+        /* visible */
+    }
+
+    /* mobile menu hidden by default; vertical panel */
+    .nav-links {
+        /* menu panel on mobile */
+        position: absolute;
+        /* absolute positioning */
+        top: 100%;
+        /* just below header */
+        right: 0;
+        /* align right */
+        width: 200px;
+        /* fixed width */
+        background: #020617;
+        /* same background color */
+        flex-direction: column;
+        /* vertical list */
+        align-items: flex-start;
+        /* left align items */
+        padding: 10px 0;
+        /* vertical padding */
+        border: 1px solid #2e3440;
+        /* subtle border */
+        display: none;
+        /* hide by default */
+    }
+
+    /* full-width list items for touch targets */
+    .nav-links li {
+        /* mobile list item */
+        margin: 0;
+        /* remove horizontal gaps */
+        width: 100%;
+        /* fill container */
+    }
+
+    .nav-links li a {
+        /* mobile links in panel */
+        display: block;
+        /* full width clickable area */
+        width: 100%;
+        /* fill container */
+        padding: 10px 20px;
+        /* comfortable touch target */
+    }
+
+    /* show menu when checkbox is checked */
+    .nav-toggle:checked+.nav-toggle-label+.nav-links {
+        /* sibling selector chain */
+        display: flex;
+        /* make menu visible */
+    }
 }

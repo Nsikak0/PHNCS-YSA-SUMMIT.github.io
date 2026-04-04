@@ -1,43 +1,73 @@
-<!DOCTYPE html> <!-- Defines HTML5 document type -->
-<html lang="en"> <!-- Root element with language set to English -->
+<!DOCTYPE html>
+<!--
+    SECTION: DOCUMENT TYPE AND HEAD
+    - Declares page as HTML5
+    - Sets language to English
+    - Includes metadata for character encoding and responsive viewport
+    - Loads Google Fonts and the main stylesheet
+    - Sets the document title shown in browser tabs
+-->
+<html lang="en">
 
-<head> <!-- Document metadata container -->
+<head>
     <meta charset="UTF-8"> <!-- Character encoding for page -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive scaling for mobile -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet"> <!-- Link to Google Fonts for Roboto -->
-    <link rel=" stylesheet" href="styles.css"> <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS file -->
     <title>PHNCS-YSA-SUMMIT</title> <!-- Browser tab title -->
 </head>
 
 <body> <!-- Page content begins -->
-    <header> <!-- Site header at top -->
-        <h1>PHNCS YSA SUMMIT</h1> <!-- Main heading text -->
+    <header>
+        <!--
+            SECTION: SITE HEADER
+            - Contains the main site title
+            - Includes top navigation for site sections
+            - Uses a responsive hamburger menu for mobile screens
+        -->
+        <h1>PHNCS YSA SUMMIT</h1>
 
-        <nav> <!-- Navigation container -->
+        <nav>
             <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle menu">
-            <!-- Hidden checkbox for mobile toggle -->
-            <label for="nav-toggle" class="nav-toggle-label">☰</label> <!-- Hamburger icon label linked to checkbox -->
-            <ul class="nav-links"> <!-- Navigation list -->
-                <li><a href="#home">Home</a></li> <!-- First nav item -->
-                <li><a href="#pictures">Pictures</a></li> <!-- Second nav item -->
-                <li><a href="#about">About</a></li> <!-- Third nav item -->
+            <!-- Mobile menu toggle checkbox -->
+            <label for="nav-toggle" class="nav-toggle-label">☰</label>
+            <!-- Navigation links list -->
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#picture">Picture</a></li>
+                <li><a href="#about">About</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <!-- Home Section -->
+        <!--
+            SECTION: MAIN PAGE CONTENT
+            - Contains primary page sections for the hero area and gallery
+            - Wraps the core content that appears under the fixed header
+        -->
+
+        <!--
+            SECTION: HOME HERO AREA
+            - Presents the event title and summary description
+            - Serves as the landing message for visitors
+        -->
         <section id="home" class="content-section">
             <h2>PHNCS YSA SUMMIT 2025</h2>
             <p>This was the highlight of an amazing event celebrating young single adults of the Church Of Jesus
-                Christ Of Latter-day Saints Port Harcourt Nigeria Central Stake.
+                Christ Of Latter-day Saints Port Harcourt NigeriCentral Stake.
             </p>
         </section>
 
-        <section id="pictures" class="content-section">
+        <!--
+            SECTION: PHOTO GALLERY
+            - Displays event photos in a responsive grid
+            - Each image is assigned the gallery-img class for click interaction
+        -->
+        <section id="picture" class="content-section">
             <h2>Event Photos</h2>
             <div class="gallery">
                 <img src="images/WhatsApp Image 2026-03-31 at 7.49.56 AM.jpeg" alt="Event photo 1" class="gallery-img">
@@ -95,6 +125,12 @@
         </section>
     </main>
 
+    <!--
+        SECTION: FOOTER
+        - Provides summit information and contact details
+        - Includes a two-column layout for about and contact content
+        - Contains copyright notice at the page bottom
+    -->
     <footer id="about">
         <div class="footer-content">
             <div class="footer-about">
@@ -110,6 +146,8 @@
         </div>
         <p class="footer-copy">© 2026 All rights reserved.</p>
     </footer>
+
+    <script src="gallery.js"></script> <!-- Gallery lightbox functionality -->
 </body>
 
 </html>

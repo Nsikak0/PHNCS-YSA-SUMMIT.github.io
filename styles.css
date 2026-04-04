@@ -1,12 +1,13 @@
-/* global reset for consistent sizing */
+/*
+    SECTION: GLOBAL RESET AND BASE STYLES
+    - Removes default spacing from all elements
+    - Applies border-box sizing for predictable layout
+    - Sets the site-wide font family and font rendering defaults
+*/
 * {
-    /* universal selector for all elements */
     margin: 0;
-    /* remove default margins */
     padding: 0;
-    /* remove default padding */
     box-sizing: border-box;
-    /* include border/padding in width/height */
     font-family: "Roboto", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
@@ -385,5 +386,205 @@ nav a:hover {
         /* mobile image height */
         height: 150px;
         /* smaller height */
+    }
+}
+
+/* Lightbox modal styles */
+.lightbox-modal {
+    /* fullscreen modal overlay */
+    display: none;
+    /* hidden by default */
+    position: fixed;
+    /* fixed to viewport */
+    top: 0;
+    /* top edge */
+    left: 0;
+    /* left edge */
+    width: 100%;
+    /* full width */
+    height: 100%;
+    /* full height */
+    background-color: rgba(0, 0, 0, 0.95);
+    /* dark semi-transparent background */
+    z-index: 2000;
+    /* on top of all elements */
+    justify-content: center;
+    /* center horizontally */
+    align-items: center;
+    /* center vertically */
+    flex-direction: column;
+    /* stack content vertically */
+}
+
+.lightbox-image {
+    /* modal image */
+    max-width: 90%;
+    /* max width of viewport */
+    max-height: 80vh;
+    /* max height of viewport */
+    object-fit: contain;
+    /* preserve aspect ratio */
+    animation: zoomIn 0.3s ease;
+    /* smooth zoom animation */
+}
+
+@keyframes zoomIn {
+
+    /* zoom in animation */
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.lightbox-close {
+    /* close button */
+    position: absolute;
+    /* absolute positioning */
+    top: 20px;
+    /* 20px from top */
+    right: 30px;
+    /* 30px from right */
+    font-size: 40px;
+    /* large font size */
+    color: white;
+    /* white text */
+    cursor: pointer;
+    /* pointer cursor */
+    user-select: none;
+    /* no text selection */
+    transition: color 0.3s ease;
+    /* smooth color transition */
+}
+
+.lightbox-close:hover {
+    /* hover state */
+    color: #ccc;
+    /* lighter gray on hover */
+}
+
+.lightbox-nav {
+    /* navigation button container */
+    position: absolute;
+    /* absolute positioning */
+    width: 100%;
+    /* full width */
+    display: flex;
+    /* flex layout */
+    justify-content: space-between;
+    /* space between buttons */
+    padding: 0 20px;
+    /* horizontal padding */
+    pointer-events: none;
+    /* don't capture events */
+}
+
+.lightbox-prev,
+.lightbox-next {
+    /* navigation buttons */
+    position: absolute;
+    /* absolute positioning */
+    background-color: rgba(255, 255, 255, 0.3);
+    /* semi-transparent white */
+    border: none;
+    /* no border */
+    color: white;
+    /* white text */
+    font-size: 30px;
+    /* large font */
+    padding: 10px 15px;
+    /* button padding */
+    cursor: pointer;
+    /* pointer cursor */
+    border-radius: 4px;
+    /* slight rounding */
+    transition: all 0.3s ease;
+    /* smooth transitions */
+    pointer-events: auto;
+    /* capture events */
+}
+
+.lightbox-prev {
+    /* previous button */
+    left: 20px;
+    /* 20px from left */
+    top: 50%;
+    /* vertically centered */
+    transform: translateY(-50%);
+    /* center vertically */
+}
+
+.lightbox-next {
+    /* next button */
+    right: 20px;
+    /* 20px from right */
+    top: 50%;
+    /* vertically centered */
+    transform: translateY(-50%);
+    /* center vertically */
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    /* hover state */
+    background-color: rgba(255, 255, 255, 0.6);
+    /* more opaque on hover */
+}
+
+.lightbox-counter {
+    /* image counter display */
+    position: absolute;
+    /* absolute positioning */
+    bottom: 20px;
+    /* 20px from bottom */
+    left: 50%;
+    /* center horizontally */
+    transform: translateX(-50%);
+    /* center adjustment */
+    color: white;
+    /* white text */
+    font-size: 16px;
+    /* readable size */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* semi-transparent background */
+    padding: 8px 16px;
+    /* internal padding */
+    border-radius: 4px;
+    /* slight rounding */
+}
+
+/* Mobile lightbox styles */
+@media (max-width: 768px) {
+
+    .lightbox-prev,
+    .lightbox-next {
+        /* smaller buttons on mobile */
+        font-size: 24px;
+        /* smaller font */
+        padding: 8px 12px;
+        /* smaller padding */
+    }
+
+    .lightbox-close {
+        /* adjust close button on mobile */
+        font-size: 32px;
+        /* smaller size */
+        right: 15px;
+        /* closer to edge */
+        top: 15px;
+        /* closer to top */
+    }
+
+    .lightbox-image {
+        /* larger image area on mobile */
+        max-width: 95%;
+        /* wider on mobile */
+        max-height: 85vh;
+        /* taller on mobile */
     }
 }

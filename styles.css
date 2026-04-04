@@ -7,6 +7,12 @@
     /* remove default padding */
     box-sizing: border-box;
     /* include border/padding in width/height */
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
 }
 
 /* body base colors and line spacing */
@@ -18,6 +24,12 @@ body {
     /* white text */
     line-height: 1.6;
     /* improved readability */
+    display: flex;
+    /* flex layout */
+    flex-direction: column;
+    /* vertical stacking */
+    min-height: 100vh;
+    /* full viewport height */
 }
 
 /* fixed header at top, full width */
@@ -37,6 +49,89 @@ header {
     /* internal spacing */
     z-index: 1000;
     /* on top of other elements */
+}
+
+/* main content area with top padding for fixed header */
+main {
+    /* main content wrapper */
+    flex: 1;
+    /* grow to fill available space */
+    margin-top: 120px;
+    /* space below fixed header */
+}
+
+/* footer at bottom of page */
+footer {
+    /* footer container */
+    background: #020617;
+    /* dark footer background */
+    padding: 40px 50px;
+    /* internal spacing */
+    text-align: left;
+    /* left align content */
+    border-top: 1px solid #2e3440;
+    /* subtle top border */
+    margin-top: auto;
+    /* push to bottom */
+}
+
+.footer-content {
+    /* footer layout wrapper */
+    display: flex;
+    /* horizontal layout */
+    justify-content: space-between;
+    /* separate content areas */
+    gap: 40px;
+    /* space between columns */
+    flex-wrap: wrap;
+    /* wrap on small screens */
+    max-width: 1200px;
+    /* limit width */
+    margin: 0 auto;
+    /* center in footer */
+}
+
+.footer-about,
+.footer-contact {
+    /* footer content columns */
+    flex: 1 1 280px;
+    /* responsive widths */
+}
+
+.footer-about h2,
+.footer-contact strong {
+    /* accent text */
+    color: #38bdf8;
+    /* light blue */
+}
+
+.footer-contact a {
+    /* social link style */
+    color: #38bdf8;
+    /* blue link */
+    text-decoration: none;
+}
+
+.footer-contact a:hover {
+    /* hover underline for links */
+    text-decoration: underline;
+}
+
+.footer-contact p,
+.footer-about p {
+    /* footer paragraph spacing */
+    color: #cbd5e1;
+    /* lighter text */
+    margin-bottom: 12px;
+}
+
+.footer-copy {
+    /* copyright line */
+    margin-top: 25px;
+    /* spacing above copyright */
+    color: #94a3b8;
+    /* muted text */
+    text-align: center;
 }
 
 /* navigation container: flex layout space-between */
@@ -173,5 +268,122 @@ nav a:hover {
         /* sibling selector chain */
         display: flex;
         /* make menu visible */
+    }
+}
+
+/* content section styling */
+.content-section {
+    /* individual content section */
+    padding: 40px 50px;
+    /* internal spacing */
+    scroll-margin-top: 100px;
+    /* offset for fixed header when navigating */
+}
+
+/* home section centered on page */
+#home {
+    /* full viewport height */
+    display: flex;
+    /* flex layout */
+    flex-direction: column;
+    /* vertical stacking */
+    justify-content: center;
+    /* center vertically */
+    align-items: center;
+    /* center horizontally */
+    padding: 0;
+    /* remove padding for centering */
+    line-height: 1.4;
+    /* tighter line spacing for headings */
+    margin: 0 auto;
+    /* center container */
+    width: 80%;
+    /* limit width for readability */
+    max-width: 700px;
+    font-size: 16px;
+}
+
+.content-section h2 {
+    /* section headings */
+    font-size: 2em;
+    /* large heading size */
+    margin-bottom: 20px;
+    /* space below heading */
+    color: #38bdf8;
+    /* light blue color */
+}
+
+.content-section p {
+    /* section paragraphs */
+    font-size: 1.1em;
+    /* readable size */
+    line-height: 1.8;
+    /* good line spacing */
+    margin-bottom: 15px;
+    /* space between paragraphs */
+}
+
+/* image gallery container */
+.gallery {
+    /* gallery grid wrapper */
+    display: grid;
+    /* CSS grid layout */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    /* responsive columns */
+    gap: 15px;
+    /* space between images */
+    margin-top: 20px;
+    /* space above gallery */
+}
+
+/* individual gallery images */
+.gallery-img {
+    /* gallery images */
+    width: 100%;
+    /* full width of grid cell */
+    height: 300px;
+    /* taller images */
+    object-fit: cover;
+    /* maintain aspect ratio */
+    border-radius: 4px;
+    /* subtle rounded corners */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    /* smooth effects */
+    cursor: pointer;
+    /* pointer on hover */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* subtle shadow */
+}
+
+.gallery-img:hover {
+    /* hover effect for images */
+    transform: scale(1.02);
+    /* subtle zoom on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    /* enhanced shadow */
+}
+
+/* responsive gallery for mobile */
+@media (max-width: 768px) {
+    /* mobile adjustments */
+
+    .content-section {
+        /* mobile section padding */
+        padding: 30px 20px;
+        /* reduced padding */
+    }
+
+    .gallery {
+        /* mobile gallery grid */
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        /* smaller columns on mobile */
+        gap: 10px;
+        /* reduced gap */
+    }
+
+    .gallery-img {
+        /* mobile image height */
+        height: 150px;
+        /* smaller height */
     }
 }

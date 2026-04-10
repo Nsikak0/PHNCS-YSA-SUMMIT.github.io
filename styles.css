@@ -1,13 +1,12 @@
-/*
-    SECTION: GLOBAL RESET AND BASE STYLES
-    - Removes default spacing from all elements
-    - Applies border-box sizing for predictable layout
-    - Sets the site-wide font family and font rendering defaults
-*/
+/* global reset for consistent sizing */
 * {
+    /* universal selector for all elements */
     margin: 0;
+    /* remove default margins */
     padding: 0;
+    /* remove default padding */
     box-sizing: border-box;
+    /* include border/padding in width/height */
     font-family: "Roboto", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
@@ -414,6 +413,8 @@ nav a:hover {
     /* center vertically */
     flex-direction: column;
     /* stack content vertically */
+    touch-action: pan-y;
+    /* keep vertical gestures natural while allowing horizontal swipe navigation */
 }
 
 .lightbox-image {
@@ -426,6 +427,8 @@ nav a:hover {
     /* preserve aspect ratio */
     animation: zoomIn 0.3s ease;
     /* smooth zoom animation */
+    touch-action: pan-y;
+    /* allow swipe navigation without fighting the browser */
 }
 
 @keyframes zoomIn {

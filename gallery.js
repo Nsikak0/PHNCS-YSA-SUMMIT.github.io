@@ -28,6 +28,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const totalSpan = document.querySelector('.lightbox-total');
 
     let currentIndex = 0;
+    // Track touch positions so horizontal swipes can change images on mobile.
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const minSwipeDistance = 50;
 
     // Set total images count
     totalSpan.textContent = galleryImages.length;
@@ -98,4 +102,36 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
+
+    // Save the starting touch point when the user begins a swipe.
+    modal.addEventListener('touchstart', function (event) {
+        if (event.target.closest('.lightbox-prev, .lightbox-next, .lightbox-close')) {
+            return;
+        }
+
+        const touch = event.changedTouches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+    }, { passive: true });
+
+    // Change images only for clear horizontal swipes, not vertical scrolling.
+    modal.addEventListener('touchend', function (event) {
+        if (event.target.closest('.lightbox-prev, .lightbox-next, .lightbox-close')) {
+            return;
+        }
+
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+
+        if (Math.abs(deltaX) < minSwipeDistance || Math.abs(deltaX) <= Math.abs(deltaY)) {
+            return;
+        }
+
+        if (deltaX < 0) {
+            nextImage();
+        } else {
+            prevImage();
+        }
+    }, { passive: true });
 });

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const header = document.querySelector('header');
     const navToggle = document.getElementById('nav-toggle');
     const sectionLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    const homeSection = document.querySelector('#home');
 
     // Keep section anchor alignment accurate for the current fixed header height.
     function updateHeaderOffset() {
@@ -18,6 +19,16 @@ document.addEventListener('DOMContentLoaded', function () {
     updateHeaderOffset();
     window.addEventListener('resize', updateHeaderOffset);
     window.addEventListener('load', updateHeaderOffset);
+
+    function scrollToHome(behavior = 'smooth') {
+        if (!homeSection || !header) {
+            return;
+        }
+
+        updateHeaderOffset();
+        const top = homeSection.getBoundingClientRect().top + window.scrollY - (header.offsetHeight + 12);
+        window.scrollTo({ top, behavior });
+    }
 
     sectionLinks.forEach((link) => {
         link.addEventListener('click', function (event) {
@@ -72,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const totalSpan = document.querySelector('.lightbox-total');
 
     let currentIndex = 0;
+    let lightboxHistoryActive = false;
     // Track touch positions so horizontal swipes can change images on mobile.
     let touchStartX = 0;
     let touchStartY = 0;
@@ -82,6 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to open lightbox
     function openLightbox(index) {
+        const isClosed = modal.style.display !== 'flex';
         currentIndex = index;
         const imageSrc = galleryImages[index].src;
         const imageAlt = galleryImages[index].alt;
@@ -92,12 +105,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden'; // Prevent scrolling
+
+        if (isClosed) {
+            history.pushState({ lightbox: true }, '', location.href);
+            lightboxHistoryActive = true;
+        }
     }
 
     // Function to close lightbox
     function closeLightbox() {
         modal.style.display = 'none';
         document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+
+    // Prefer browser back so the mobile return button closes viewer naturally.
+    function requestCloseLightbox() {
+        if (lightboxHistoryActive) {
+            history.back();
+            return;
+        }
+
+        closeLightbox();
+        scrollToHome('smooth');
     }
 
     // Function to show next image
@@ -121,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Close button click
-    closeBtn.addEventListener('click', closeLightbox);
+    closeBtn.addEventListener('click', requestCloseLightbox);
 
     // Next/Previous button clicks
     nextBtn.addEventListener('click', nextImage);
@@ -130,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Close when clicking outside the image
     modal.addEventListener('click', function (event) {
         if (event.target === modal) {
-            closeLightbox();
+            requestCloseLightbox();
         }
     });
 
@@ -142,8 +171,17 @@ document.addEventListener('DOMContentLoaded', function () {
             } else if (event.key === 'ArrowLeft') {
                 prevImage();
             } else if (event.key === 'Escape') {
-                closeLightbox();
+                requestCloseLightbox();
             }
+        }
+    });
+
+    // Mobile/browser return button: exit photo viewer and go back to the main page.
+    window.addEventListener('popstate', function () {
+        if (modal.style.display === 'flex') {
+            lightboxHistoryActive = false;
+            closeLightbox();
+            scrollToHome('smooth');
         }
     });
 

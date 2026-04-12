@@ -1,4 +1,16 @@
 /* global reset for consistent sizing */
+:root {
+    /* shared offset for fixed header spacing */
+    --header-offset: 205px;
+}
+
+html {
+    /* smooth anchor link navigation */
+    scroll-behavior: smooth;
+    /* offset anchor target by fixed header height */
+    scroll-padding-top: var(--header-offset);
+}
+
 * {
     /* universal selector for all elements */
     margin: 0;
@@ -49,6 +61,39 @@ header {
     /* internal spacing */
     z-index: 1000;
     /* on top of other elements */
+    /* stack heading and nav vertically */
+    display: flex;
+    /* vertical header layout */
+    flex-direction: column;
+    /* space between title and nav */
+    gap: 12px;
+    /* subtle elevation under fixed header */
+    box-shadow: 0 12px 28px rgba(2, 6, 23, 0.35);
+}
+
+header h1 {
+    /* align heading text to the left */
+    text-align: left;
+    /* compact line spacing for title */
+    line-height: 1.25;
+    /* responsive heading size */
+    font-size: clamp(1rem, 2.1vw, 1.45rem);
+    /* base title weight */
+    font-weight: 500;
+    /* slight spacing for readability */
+    letter-spacing: 0.01em;
+    /* keep title width controlled */
+    max-width: 760px;
+}
+
+header h1 .title-line {
+    /* force one title piece per line */
+    display: block;
+}
+
+header h1 .church-name {
+    /* emphasize church name line */
+    font-weight: 900;
 }
 
 /* main content area with top padding for fixed header */
@@ -56,7 +101,7 @@ main {
     /* main content wrapper */
     flex: 1;
     /* grow to fill available space */
-    margin-top: 120px;
+    margin-top: var(--header-offset);
     /* space below fixed header */
 }
 
@@ -145,6 +190,8 @@ nav {
     /* vertical centering */
     width: 100%;
     /* full width inside header */
+    /* spacing between toggle and links */
+    gap: 16px;
 }
 
 /* checkbox state toggler hidden by default (desktop) */
@@ -178,6 +225,10 @@ nav {
     /* no bullets */
     margin-left: auto;
     /* push to right */
+    /* vertical centering of nav items */
+    align-items: center;
+    /* allow wrapping on smaller widths */
+    flex-wrap: wrap;
 }
 
 /* spacing between menu items */
@@ -194,6 +245,61 @@ nav a {
     /* text color */
     text-decoration: none;
     /* no underline */
+}
+
+.register-link {
+    /* flex for centered CTA text */
+    display: inline-flex;
+    /* center text vertically */
+    align-items: center;
+    /* center text horizontally */
+    justify-content: center;
+    /* CTA internal spacing */
+    padding: 10px 16px;
+    /* pill button shape */
+    border-radius: 999px;
+    /* CTA background color */
+    background: #f59e0b;
+    /* CTA text color */
+    color: #020617;
+    /* bold CTA text */
+    font-weight: 800;
+    /* letter spacing for emphasis */
+    letter-spacing: 0.04em;
+    /* blinking animation */
+    animation: navBlink 1s linear infinite;
+}
+
+.register-link:hover {
+    /* keep dark text on hover */
+    color: #020617;
+    /* brighter hover state */
+    background: #fbbf24;
+}
+
+.register-mobile {
+    /* keep external mobile register button hidden on desktop */
+    display: none;
+}
+
+@keyframes navBlink {
+
+    0%,
+    45%,
+    100% {
+        /* visible state */
+        opacity: 1;
+        /* remove glow in visible state */
+        box-shadow: 0 0 0 rgba(245, 158, 11, 0);
+    }
+
+    50%,
+    95% {
+        /* dim blink state */
+        opacity: 0.35;
+        /* glow while blinking */
+        box-shadow: 0 0 18px rgba(245, 158, 11, 0.55);
+    }
 }
 
 nav a:hover {
@@ -219,6 +325,17 @@ nav a:hover {
         /* visible */
     }
 
+    .register-mobile {
+        /* show register CTA outside hamburger menu on mobile */
+        display: inline-flex;
+        /* keep CTA compact in header row */
+        padding: 8px 12px;
+        /* preserve rounded look outside menu */
+        border-radius: 999px;
+        /* keep CTA on one line */
+        white-space: nowrap;
+    }
+
     /* mobile menu hidden by default; vertical panel */
     .nav-links {
         /* menu panel on mobile */
@@ -228,7 +345,7 @@ nav a:hover {
         /* just below header */
         right: 0;
         /* align right */
-        width: 200px;
+        width: 260px;
         /* fixed width */
         background: #020617;
         /* same background color */
@@ -263,6 +380,18 @@ nav a:hover {
         /* comfortable touch target */
     }
 
+    .register-item .register-link {
+        /* square edge button in mobile panel */
+        border-radius: 0;
+        /* align text to left on mobile menu */
+        text-align: left;
+    }
+
+    .register-item {
+        /* hide register item inside hamburger menu on mobile */
+        display: none;
+    }
+
     /* show menu when checkbox is checked */
     .nav-toggle:checked+.nav-toggle-label+.nav-links {
         /* sibling selector chain */
@@ -276,7 +405,7 @@ nav a:hover {
     /* individual content section */
     padding: 40px 50px;
     /* internal spacing */
-    scroll-margin-top: 100px;
+    scroll-margin-top: var(--header-offset);
     /* offset for fixed header when navigating */
 }
 

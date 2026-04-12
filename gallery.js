@@ -1,6 +1,50 @@
 /* Gallery lightbox functionality */
 
 document.addEventListener('DOMContentLoaded', function () {
+    const header = document.querySelector('header');
+    const navToggle = document.getElementById('nav-toggle');
+    const sectionLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+
+    // Keep section anchor alignment accurate for the current fixed header height.
+    function updateHeaderOffset() {
+        if (!header) {
+            return;
+        }
+
+        const headerHeight = Math.ceil(header.getBoundingClientRect().height);
+        document.documentElement.style.setProperty('--header-offset', `${headerHeight + 16}px`);
+    }
+
+    updateHeaderOffset();
+    window.addEventListener('resize', updateHeaderOffset);
+    window.addEventListener('load', updateHeaderOffset);
+
+    sectionLinks.forEach((link) => {
+        link.addEventListener('click', function (event) {
+            const targetId = link.getAttribute('href');
+            if (!targetId) {
+                return;
+            }
+
+            const targetSection = document.querySelector(targetId);
+            if (!targetSection || !header) {
+                return;
+            }
+
+            event.preventDefault();
+            updateHeaderOffset();
+
+            const targetTop = targetSection.getBoundingClientRect().top + window.scrollY - (header.offsetHeight + 12);
+            window.scrollTo({ top: targetTop, behavior: 'smooth' });
+
+            if (navToggle) {
+                navToggle.checked = false;
+            }
+
+            history.replaceState(null, '', targetId);
+        });
+    });
+
     // Create modal HTML structure
     const modalHTML = `
         <div id="lightbox-modal" class="lightbox-modal">

@@ -1,6 +1,8 @@
 /* Gallery lightbox functionality */
 
 document.addEventListener('DOMContentLoaded', function () {
+    const homeHash = '#home';
+    const lightboxHash = '#photo-viewer';
     const header = document.querySelector('header');
     const navToggle = document.getElementById('nav-toggle');
     const sectionLinks = document.querySelectorAll('.nav-links a[href^="#"]');
@@ -107,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.style.overflow = 'hidden'; // Prevent scrolling
 
         if (isClosed) {
-            history.pushState({ lightbox: true }, '', location.href);
+            history.pushState({ lightbox: true }, '', lightboxHash);
             lightboxHistoryActive = true;
         }
     }
@@ -118,6 +120,14 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.style.overflow = 'auto'; // Restore scrolling
     }
 
+    function goHomeFromLightbox() {
+        if (location.hash !== homeHash) {
+            history.replaceState(null, '', homeHash);
+        }
+
+        scrollToHome('smooth');
+    }
+
     // Prefer browser back so the mobile return button closes viewer naturally.
     function requestCloseLightbox() {
         if (lightboxHistoryActive) {
@@ -126,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         closeLightbox();
-        scrollToHome('smooth');
+        goHomeFromLightbox();
     }
 
     // Function to show next image
@@ -181,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (modal.style.display === 'flex') {
             lightboxHistoryActive = false;
             closeLightbox();
-            scrollToHome('smooth');
+            goHomeFromLightbox();
         }
     });
 
